@@ -27,31 +27,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+# Application definition
+
 INSTALLED_APPS = [
-    # ...
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'base.apps.BaseConfig',
-    'django_mongodb_engine',  # Add this line
+    'base.apps.BaseConfig'
+
 ]
-
-
-# Application definition
-
-# INSTALLED_APPS = [
-#     'django.contrib.admin',
-#     'django.contrib.auth',
-#     'django.contrib.contenttypes',
-#     'django.contrib.sessions',
-#     'django.contrib.messages',
-#     'django.contrib.staticfiles',
-#     'base.apps.BaseConfig'
-
-# ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,6 +77,24 @@ WSGI_APPLICATION = 'Flamingo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME'  : 'testdb',
+        'ENFORCE_SCHEMA' : False,
+        'CLIENT': {
+            'host': 'mongodb+srv://pranavmalhotra7777:<mangodbpranav>@cluster0.olzab7m.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', # Replace with your MongoDB server address
+            'port': 8000,               # Replace with your MongoDB port if different
+            'username': 'pranavmalhotra7777', # Replace with your MongoDB username (optional)
+            'password': 'mangodbpranav', # Replace with your MongoDB password (optional)
+            'authSource': 'admin',
+            'authMechanism': 'SCRAM-SHA-1', # Replace with your MongoDB authentication database (optional)
+        }
+        
+    }
+}
+
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -97,23 +103,7 @@ WSGI_APPLICATION = 'Flamingo.wsgi.application'
 # }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_mongodb_engine',
-        'NAME': 'your_database_name',
-        'HOST': 'localhost',  # or your MongoDB server address
-        'PORT': 8000,  # or your MongoDB server port
-    }
-}
 
-from django.db import models
-from django_mongodb_engine.fields import DjangoObjectIdField
-
-class YourModel(models.Model):
-    id = DjangoObjectIdField(primary_key=True)
-
-
-    # Add your fields here
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
